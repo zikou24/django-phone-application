@@ -10,7 +10,12 @@ urlpatterns = [
     path('pricerange/', views.pricerange, name='price-range'),
 
     path('caegory/<str:pk>', views.categoryProduct, name='category-product'),
+
     path('productdetail/<str:pk>', views.Productdetail, name='product-detail'),
+
+    path('submitreview/<str:product_id>',
+         views.submitReview, name='submit-review'),
+
 
 
 

@@ -76,6 +76,10 @@
     </div> <!-- card.// -->
     <!-- ============================ COMPONENT 1 END .// ================================= -->
     
+
+
+
+
     <br>
     
     <div class="row">
@@ -85,8 +89,55 @@
             <h3>Customer Reviews </h3>  
             
         </header>
-    {% for review in review %}
+
+
+
+
+        <form action="{% url 'submit-review' productD.id %}" method = "POST">  
+
+          {% csrf_token %}
+          <h5>write your review</h5>
+            
+              <h1> how do you rate this product</h1>
+
+              <br>
+
+
+              Review Title:
+              <br>
+
+              {{form.review_title}}
+
+              <br>
+              <br>
+              
+
+              Review:
+
+              {{form.review_body}}
+              
+              <br>
+
+              <input type="submit" value="  Submit" class="btn btn-block btn-primary" style="width: 150px;">
+
+              <br>
+              <br>
+              <br>
+
+        </div5>
+
+
+
+      </form>
+
+      <br>
+
+
+
+
+    
         <article class="box mb-3">
+          {% for review in review %}
             <div class="icontext w-100">
                 <img src="{{review.profiles.profile_image.url}}" class="img-xs icon rounded-circle">
                 <div class="text">
@@ -106,9 +157,10 @@
                     
                 </p>	
             </div>
+            {% endfor %}
+
         </article>
 
-        {% endfor %}
 
     
         

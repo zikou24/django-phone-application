@@ -45,4 +45,5 @@ def __init__(self, *args, **kwargs):
 class ReviewForm(ModelForm):
     class Meta:
         model = Review
-        fields = ["prouduct_review", "profiles", "review_title", "review_body"]
+        fields = ["review_title", "review_body"]
+        

@@ -1,6 +1,7 @@
 from django.shortcuts import redirect, render
 
-from .models import Product, Category,Review
+from .models import Product, Category, Review
+from .forms import ReviewForm
 # Create your views here.
 
 
@@ -65,9 +66,36 @@ def Productdetail(request, pk):
 
     product_detail = Product.objects.get(id=pk)
 
-    review = Review.objects.filter(prouduct_review = product_detail)
+    forms = ReviewForm()
 
-    context = {"productD": product_detail,"review":review}
-    
+    review = Review.objects.filter(prouduct_review=product_detail)
+
+    context = {"productD": product_detail, "review": review, "form": forms}
 
     return render(request, 'phones/product_detail.html', context)
+
+
+def submitReview(request, product_id):
+    url = request.META.get('HTTP_REFERER')
+
+    if request.method == "POST":
+
+        try:
+            reviewss = Review.objects.get(
+                profiles=request.user, prouduct_review__id=product_id)
+            forms = ReviewForm(request.POST, instance=reviewss)
+
+            forms.save()
+
+            return redirect(url)
+
+        except:
+
+            forms = ReviewForm(request.POST)
+
+            if forms.is_valid():
+                formss = forms.save(commit=False)
+                formss.prouduct_review_id = product_id
+                formss.profiles = request.user
+                formss.save()
+                return redirect(url)
