@@ -21,7 +21,10 @@ from phonecommerce.settings import MEDIA_ROOT
 
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    path('admin/',include('admin_honeypot.urls', namespace='admin_honeypot') ),
+    
+    path('adminsecurelogin', admin.site.urls ),
+    
     path('', include('phone.urls')),
     path('cards/', include('card.urls')),
     path('account/', include('Accounts.urls')),
